@@ -16,15 +16,15 @@ Ushbu loyiha turli saytlardan yangiliklarni avtomatik ravishda yuklab olish va J
 
 ## Ishga tushurish
 
-1. <a href="qalampir.uz">qalampir.uz</a> saytidan ma'lumot olish:
+1. <a href="https://qalampir.uz">qalampir.uz</a> saytidan ma'lumot olish:
    ```bash
    npm run qalampir
    ```
-1. <a href="gazeta.uz">gazeta.uz</a> saytidan ma'lumot olish:
+1. <a href="https://gazeta.uz">gazeta.uz</a> saytidan ma'lumot olish:
    ```bash
    npm run gazetauz
    ```
-1. <a href="novayagazeta.eu">novayagazeta.eu</a> saytidan ma'lumot olish:
+1. <a href="https://novayagazeta.eu">novayagazeta.eu</a> saytidan ma'lumot olish:
    ```bash
    npm run novaya
    ```
