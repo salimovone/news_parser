@@ -1,0 +1,20 @@
+{
+  "name": "gazeta_uz",
+  "version": "1.0.0",
+  "description": "A parser project for gazeta.uz",
+  "main": "index.js",
+  "scripts": {
+    "qalampir": "node scripts/qalampir.js",
+    "novaya": "node scripts/novaya.js",
+    "gazeta": "node scripts/gazetauz.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "salimovone",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cheerio": "^1.0.0",
+    "luxon": "^3.6.1",
+    "xml2js": "^0.6.2"
+  }
+}
