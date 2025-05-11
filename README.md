@@ -1,32 +1,43 @@
 # Yangiliklar Parser Dasturi
+Ushbu loyiha Python va Node.js skriptlari yordamida turli saytlardan yangiliklarni avtomatik yuklab olish va JSON formatida saqlash imkonini beradi.
 
-Ushbu loyiha turli saytlardan yangiliklarni avtomatik ravishda yuklab olish va JSON formatida saqlash uchun mo'ljallangan.
+## Python Skriptlar
 
-## O'rnatish
-
-1. Loyihani klonlang:
+1. `qalampir_parser.py` skripti:
    ```bash
-   git clone <repository-url>
-   cd parser_js
+   python3 scripts/qalampir_parser.py
    ```
-2. Kerakli kutubxonalarni o'rnating:
-   ```bash
-   npm install
-   ```
+   Ushbu skript <a href="https://qalampir.uz">qalampir.uz</a> saytidan yangiliklarni yuklab olish uchun ishlatiladi.
 
-## Ishga tushurish
+2. `gazeta_parser.py` skripti:
+   ```bash
+   python3 scripts/gazeta_parser.py
+   ```
+   Ushbu skript <a href="https://gazeta.uz">gazeta.uz</a> saytidan yangiliklarni yuklab olish uchun ishlatiladi.
 
-1. <a href="https://qalampir.uz">qalampir.uz</a> saytidan ma'lumot olish:
+3. `novaya_parser.py` skripti:
    ```bash
-   npm run qalampir
+   python3 scripts/novaya_parser.py
    ```
-1. <a href="https://gazeta.uz">gazeta.uz</a> saytidan ma'lumot olish:
-   ```bash
-   npm run gazetauz
-   ```
-1. <a href="https://novayagazeta.eu">novayagazeta.eu</a> saytidan ma'lumot olish:
-   ```bash
-   npm run novaya
-   ```
+   Ushbu skript <a href="https://novayagazeta.eu">novayagazeta.eu</a> saytidan yangiliklarni yuklab olish uchun ishlatiladi.
 
-### natijalar `output` papkasida `.json` korinishida saqlanadi# news_parser
+## Node.js Skriptlar
+
+1. `qalampir_parser.js` skripti:
+   ```bash
+   node scripts/qalampir_parser.js
+   ```
+   Ushbu skript <a href="https://qalampir.uz">qalampir.uz</a> saytidan yangiliklarni yuklab olish uchun ishlatiladi.
+
+2. `gazeta_parser.js` skripti:
+   ```bash
+   node scripts/gazeta_parser.js
+   ```
+   Ushbu skript <a href="https://gazeta.uz">gazeta.uz</a> saytidan yangiliklarni yuklab olish uchun ishlatiladi.
+
+3. `novaya_parser.js` skripti:
+   ```bash
+   node scripts/novaya_parser.js
+   ```
+   Ushbu skript <a href="https://novayagazeta.eu">novayagazeta.eu</a> saytidan yangiliklarni yuklab olish uchun ishlatiladi.
+
