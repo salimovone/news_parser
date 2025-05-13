@@ -1,18 +1,24 @@
 import os
 import json
 import requests
+import time
 from bs4 import BeautifulSoup
 
 
 
 def fetch_data(url):
+    time.sleep(3)  # To reduce rate limiting
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
     try:
-        response = requests.get(url)
-        response.raise_for_status() 
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
         return response.text
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
         return None
+
     
 def parse_news_list(page_content, base_url):
     try:
@@ -23,8 +29,7 @@ def parse_news_list(page_content, base_url):
             published_at = item.select_one("div.news_list__time").get_text(strip=True)
 
             articles.append({
-                "url": base_url+link,
-                "published_at": published_at
+                "url": base_url+link
             })
         return articles
     except Exception as e:
@@ -38,13 +43,16 @@ def parse_news_page(page_link):
         title = soup.select_one("div.article-top h1").get_text(strip=True)
         content = "\n\n".join([p.get_text(strip=True) for p in soup.select("div.article-content p")])
         images = [img["src"] for img in soup.select("div.article-content img") if img["src"].startswith("http")]
+        published_at = soup.select_one("span.main-top-links-list__text")
 
         return {
             "title": title,
             "content": content,
             "image_url": images,
             "category": [],
-            "type": "news"
+            "type": "news",
+            "published_at": published_at
+
         }
     except Exception as e:
         print(f"Error parsing news page: {e}")
@@ -61,7 +69,7 @@ def get_objects(base_url):
         for news in news_list:
             news_page = parse_news_page(news["url"])
             res = news_page | news
-            if news_page["title"]:
+            if news_page:
                 all_news.append(res)
         return all_news
     else:
@@ -70,7 +78,7 @@ def get_objects(base_url):
 
 # Example usage
 if __name__ == "__main__":
-    base_url = "https://en.fergana.news"
+    base_url = "https://uz.fergana.news"
     output_dir = os.path.join(os.path.dirname(__file__), "../output")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -78,7 +86,7 @@ if __name__ == "__main__":
     try:
         parsed_articles = get_objects(base_url)
         final_data = {
-        "source": "Gazeta.uz",
+        "source": "fergana.news",
         "posts": parsed_articles,
     }
         file_path = os.path.join(output_dir, "fergana_news.json")
