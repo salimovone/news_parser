@@ -6,7 +6,23 @@ from datetime import datetime, timedelta
 import xmltodict
 
 sitemap_url = "https://qalampir.uz/sitemap.xml"
-max_articles = 3000  # Maksimal maqolalar soni
+max_articles = 10  # Maksimal maqolalar soni
+
+
+from datetime import datetime
+
+def normalize_date(date_str):
+    months = {
+        "Январь": "01", "Февраль": "02", "Март": "03", "Апрель": "04",
+        "Май": "05", "Июнь": "06", "Июль": "07", "Август": "08",
+        "Сентябрь": "09", "Октябрь": "10", "Ноябрь": "11", "Декабрь": "12"
+    }
+    parts = date_str.split()
+    day = parts[0]
+    month = months[parts[1]]
+    year = parts[2] if len(parts) > 2 else str(datetime.now().year)
+    return f"{year}-{month}-{day.zfill(2)}"
+
 
 def extract_urls_and_dates():
     try:
@@ -18,7 +34,6 @@ def extract_urls_and_dates():
         results = [
             {
                 "url": entry["loc"],
-                "published_at": entry.get("lastmod", ""),
             }
             for entry in urls
             if "loc" in entry
@@ -30,7 +45,7 @@ def extract_urls_and_dates():
         filtered = [
             item
             for index, item in enumerate(results)
-            if datetime.fromisoformat(item["published_at"]) >= one_week_ago and index < max_articles
+            if index < max_articles
         ]
 
         enriched = []
@@ -55,10 +70,14 @@ def extract_urls_and_dates():
                     if img.get("src") and not img["src"].endswith("dp.svg")
                 ]
 
+                published_at_element = soup.select_one('p.right[itemprop="datePublished"]')
+                published_at = published_at_element.get_text(strip=True).split('visibility')[0]
+                published_at = normalize_date(published_at)
+
                 enriched.append(
                     {
                         "url": item["url"],
-                        "published_at": item["published_at"],
+                        "published_at": published_at,
                         "title": title,
                         "content": article_text.replace('"', "❞"),
                         "category": category,
